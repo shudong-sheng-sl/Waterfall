@@ -13,4 +13,4 @@ Waterfall Layout
 
 **Try out the demo**
 
-+ http://myst729.github.com/Waterfall
++ http://myst729.github.io/Waterfall
