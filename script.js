@@ -113,6 +113,7 @@
         */
 
         // Fake, only for GH demo
+        /* start to fake */
         var fragment = document.createDocumentFragment(),
             cells = [],
             data = [],
@@ -133,6 +134,7 @@
         }
         container.appendChild(fragment);
         adjustCells(cells);
+        /* end of fake */
     };
 
     var reflowCheck = function() {
