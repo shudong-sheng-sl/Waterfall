@@ -8,6 +8,7 @@
         colWidth = 220,
         colArray = [],
         colCount = Math.floor((document.body.offsetWidth + gapWidth) / (colWidth + gapWidth)),
+        cellTmpl = document.getElementById('tmpl').innerHTML,
         delayer,
         noticer;
 
@@ -101,8 +102,8 @@
                 for(var j = 0, k = data.length; j < k; j++) {
                     var cell = document.createElement('div');
                     cell.className = 'cell';
-                    cell.innerHTML = '<p><a href="#"><img src="img/' + data[j].s + '.jpg" height="' + data[j].h + '" width="190" /></a></p><h2><a href="#">' + data[j].s + '.jpg</a></h2><span class="like">Like!</span><span class="mark">Mark!</span>';
                     cells.push(cell);
+                    front(cellTmpl, data[j], cell);
                     fragment.appendChild(cell);
                 }
                 container.appendChild(fragment);
@@ -120,16 +121,10 @@
             size = [286, 143, 270, 143, 190, 285, 152, 275, 285, 285, 128, 281, 242, 339, 236, 157, 286, 259, 267, 137, 253, 127, 190, 190, 225, 269, 264, 272, 126, 265, 287, 269, 125, 285, 190, 314, 141, 119, 274, 274, 285, 126, 279, 143, 266, 279, 600, 276, 285, 182, 143, 287, 126, 190, 285, 143, 241, 166, 240, 190];
         for(var i = 0; i < num; i++) {
             var key = Math.floor(Math.random() * 60);
-            data[i] = {
-                s: key + 1,
-                h: size[key]
-            };
-        }
-        for(var j = 0, k = data.length; j < k; j++) {
             var cell = document.createElement('div');
             cell.className = 'cell';
-            cell.innerHTML = '<p><a href="#"><img src="img/' + data[j].s + '.jpg" height="' + data[j].h + '" width="190" /></a></p><h2><a href="#">' + data[j].s + '.jpg</a></h2><span class="like">Like!</span><span class="mark">Mark!</span>';
             cells.push(cell);
+            front(cellTmpl, { s: key + 1, h: size[key], w: 190 }, cell);
             fragment.appendChild(cell);
         }
         container.appendChild(fragment);

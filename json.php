@@ -5,7 +5,7 @@ $arr = array();
 for($i = 0; $i < $num; $i++) {
     $src = rand(1, 60);
     $img = getimagesize("img/" . $src . ".jpg");
-    $arr[$i] = array("s" => $src, "h" => $img[1]);
+    $arr[$i] = array("s" => $src, "h" => $img[1], "w" => 190);
 }
 echo json_encode($arr);
 

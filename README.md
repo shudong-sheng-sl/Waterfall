@@ -3,7 +3,7 @@ Waterfall Layout
 
 **About this repo**
 
-+ An adaptive waterfall layout.
++ Responsive waterfall layout.
 
 
 **Read the blog post**
