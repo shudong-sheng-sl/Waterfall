@@ -4,6 +4,7 @@ Waterfall Layout
 **About this repo**
 
 + Responsive waterfall layout.
++ This project is released under the [MIT license](http://opensource.org/licenses/MIT).
 
 
 **Read the blog post**
