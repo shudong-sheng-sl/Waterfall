@@ -1,6 +1,6 @@
-;var isGithubDemo = isGithubDemo || false;
+var isGithubDemo = isGithubDemo || false;
 
-void function() {
+void function(window, document, undefined) {
 
   // ES5 strict mode
   "user strict";
@@ -190,7 +190,7 @@ void function() {
     delayer = setTimeout(reflowCells, 500);
   };
 
-  // initialize the layout.
+  // Initialize the layout.
   var init = function() {
     columnCount = getColumnCount();
     cellsContainer.style.width = (columnCount * (COLUMN_WIDTH + GAP_WIDTH) - GAP_WIDTH) + 'px';
@@ -205,4 +205,4 @@ void function() {
   addEvent(window, 'resize', delayedReflow);
   addEvent(window, 'load', init);
 
-}();
+}(window, document);
