@@ -1,174 +1,208 @@
-(function() {
+;var isGithubDemo = isGithubDemo || false;
 
-    var container = document.getElementById('container'),
-        noticeBar = document.getElementById('notice'),
-        checkFlag = true,
-        gapHeight = 15,
-        gapWidth = 15,
-        colWidth = 220,
-        colArray = [],
-        colCount = Math.floor((document.body.offsetWidth + gapWidth) / (colWidth + gapWidth)),
-        cellTmpl = document.getElementById('tmpl').innerHTML,
-        delayer,
-        noticer;
+void function() {
 
-    var addEvent = function(element, type, handler) {
-        if(element.addEventListener) {
-            addEvent = function(element, type, handler) {
-                element.addEventListener(type, handler, false);
-            };
-        } else if(element.attachEvent) {
-            addEvent = function(element, type, handler) {
-                element.attachEvent('on' + type, handler);
-            };
-        } else {
-            addEvent = function(element, type, handler) {
-                element['on' + type] = handler;
-            };
+  // ES5 strict mode
+  "user strict";
+
+  var MIN_COLUMN_COUNT = 3; // minimal column count
+  var COLUMN_WIDTH = 220;   // cell width: 190, padding: 14 * 2, border: 1 * 2
+  var GAP_HEIGHT = 15;      // vertical gap between cells
+  var GAP_WIDTH = 15;       // horizontal gap between cells
+
+  var cellsContainer = document.getElementById('container');
+  var cellTemplate = document.getElementById('template').innerHTML;
+  var noticeTag = document.getElementById('notice');
+  var columnHeights = [];
+  var columnCount = Math.floor((document.body.offsetWidth + GAP_WIDTH) / (COLUMN_WIDTH + GAP_WIDTH));
+  var loading = false;
+  var delayer;
+  var noticer;
+
+  // Cross-browser compatible event handler.
+  var addEvent = function(element, type, handler) {
+    if(element.addEventListener) {
+      addEvent = function(element, type, handler) {
+        element.addEventListener(type, handler, false);
+      };
+    } else if(element.attachEvent) {
+      addEvent = function(element, type, handler) {
+        element.attachEvent('on' + type, handler);
+      };
+    } else {
+      addEvent = function(element, type, handler) {
+        element['on' + type] = handler;
+      };
+    }
+    addEvent(element, type, handler);
+  };
+
+  // Get the minimal value within an array of numbers.
+  var getMinVal = function(arr) {
+    return Math.min.apply(Math, arr);
+  };
+
+  // Get the maximal value within an array of numbers.
+  var getMaxVal = function(arr) {
+    return Math.max.apply(Math, arr);
+  };
+
+  // Get index of the minimal value within an array of numbers.
+  var getMinKey = function(arr) {
+    var key = 0;
+    var min = arr[0];
+    for(var i = 1, len = arr.length; i < len; i++) {
+      if(arr[i] < min) {
+        key = i;
+        min = arr[i];
+      }
+    }
+    return key;
+  };
+
+  // Get index of the maximal value within an array of numbers.
+  var getMaxKey = function(arr) {
+    var key = 0;
+    var max = arr[0];
+    for(var i = 1, len = arr.length; i < len; i++) {
+      if(arr[i] > max) {
+        key = i;
+        max = arr[i];
+      }
+    }
+    return key;
+  };
+
+  // Calculate column count from current page width.
+  var getColumnCount = function() {
+    return Math.max(MIN_COLUMN_COUNT, Math.floor((document.body.offsetWidth + GAP_WIDTH) / (COLUMN_WIDTH + GAP_WIDTH)));
+  };
+
+  // Pop notice tag after user liked or marked an item.
+  var updateNotice = function(event) {
+    clearTimeout(noticer);
+    var e = event || window.event;
+    var target = e.target || e.srcElement;
+    if(target.tagName == 'SPAN') {
+      var targetImage = target.parentNode.getElementsByTagName('h2')[0].getElementsByTagName('a')[0].innerHTML;
+      noticeTag.innerHTML = (target.className == 'like' ? 'Liked ' : 'Marked ') + '<strong>' + targetImage + '</strong>';
+      noticeTag.className = 'on';
+      noticer = setTimeout(function() {
+        noticeTag.className = 'off';
+      }, 2000);
+    }
+  };
+
+  // Position the newly appended cells and update array of column heights.
+  var adjustCells = function(cells) {
+    var columnIndex;
+    var columnHeight;
+    for(var j = 0, k = cells.length; j < k; j++) {
+      // Append the cell to column with the minimal height.
+      columnIndex = getMinKey(columnHeights);
+      columnHeight = columnHeights[columnIndex];
+      cells[j].style.left = columnIndex * (COLUMN_WIDTH + GAP_WIDTH) + 'px';
+      cells[j].style.top = columnHeight + 'px';
+      columnHeights[columnIndex] = columnHeight + GAP_HEIGHT + cells[j].offsetHeight;
+      cells[j].className = 'cell ready';
+    }
+    cellsContainer.style.height = getMaxVal(columnHeights) + 'px';
+    loadCells();
+  };
+
+  // Fetch JSON string via Ajax, parse to HTML and append to the container.
+  var appendCells = function(num) {
+    if(loading) {
+      return;
+    }
+    var xhrRequest = new XMLHttpRequest();
+    var fragment = document.createDocumentFragment();
+    var cells = [];
+    var images;
+    xhrRequest.open('GET', 'json.php?n=' + num, true);
+    xhrRequest.onreadystatechange = function() {
+      if(xhrRequest.readyState == 4 && xhrRequest.status == 200) {
+        loading = false;
+        images = JSON.parse(xhrRequest.responseText);
+        for(var j = 0, k = images.length; j < k; j++) {
+          var cell = document.createElement('div');
+          cell.className = 'cell';
+          cells.push(cell);
+          front(cellTemplate, images[j], cell);
+          fragment.appendChild(cell);
         }
-        addEvent(element, type, handler);
-    };
-
-    var getMinVal = function(arr) {
-        return Math.min.apply(Math, arr);
-    };
-
-    var getMaxVal = function(arr) {
-        return Math.max.apply(Math, arr);
-    };
-
-    var getMinKey = function(arr) {
-        var key = 0, min = arr[0];
-        for(var i = 1, len = arr.length; i < len; i++) {
-            if(arr[i] < min) {
-                key = i;
-                min = arr[i];
-            }
-        }
-        return key;
-    };
-
-    var getMaxKey = function(arr) {
-        var key = 0, max = arr[0];
-        for(var i = 1, len = arr.length; i < len; i++) {
-            if(arr[i] > max) {
-                key = i;
-                max = arr[i];
-            }
-        }
-        return key;
-    };
-
-    var userAction = function(e) {
-        clearTimeout(noticer);
-        var e = e || window.event;
-        var target = e.target || e.srcElement;
-        if(target.tagName == 'SPAN') {
-            noticeBar.innerHTML = (target.className == 'like' ? 'Liked ' : 'Marked ') + '<strong>' + target.parentNode.getElementsByTagName('h2')[0].getElementsByTagName('a')[0].innerHTML + '</strong>';
-            noticeBar.className = 'on';
-            noticer = setTimeout(function() {
-                noticeBar.className = 'off';
-            }, 2000);
-        }
-    };
-
-    var adjustCells = function(nodes) {
-        var colIndex, 
-            colHeight;
-        for(var j = 0, k = nodes.length; j < k; j++) {
-            colIndex = getMinKey(colArray);
-            colHeight = colArray[colIndex];
-            nodes[j].style.left = colIndex * (colWidth + gapWidth) + 'px';
-            nodes[j].style.top = colHeight + 'px';
-            colArray[colIndex] = colHeight + gapHeight + nodes[j].offsetHeight;
-            nodes[j].className = 'cell ready';
-        }
-        container.style.height = getMaxVal(colArray) + 'px';
-        checkFlag = true;
-        loadCheck();
-    };
-
-    var appendCells = function(num) {
-        // Fetch JSON string via Ajax
-        /*
-        var request = new XMLHttpRequest(),
-            fragment = document.createDocumentFragment(),
-            cells = [],
-            data;
-        request.open('GET', 'json.php?n=' + num, true);
-        request.onreadystatechange = function() {
-            if(request.readyState == 4 && request.status == 200) {
-                data = JSON.parse(request.responseText);
-                for(var j = 0, k = data.length; j < k; j++) {
-                    var cell = document.createElement('div');
-                    cell.className = 'cell';
-                    cells.push(cell);
-                    front(cellTmpl, data[j], cell);
-                    fragment.appendChild(cell);
-                }
-                container.appendChild(fragment);
-                adjustCells(cells);
-            }
-        };
-        request.send(null);
-        */
-
-        // Fake, only for GH demo
-        /* start to fake */
-        var fragment = document.createDocumentFragment(),
-            cells = [],
-            data = [],
-            size = [286, 143, 270, 143, 190, 285, 152, 275, 285, 285, 128, 281, 242, 339, 236, 157, 286, 259, 267, 137, 253, 127, 190, 190, 225, 269, 264, 272, 126, 265, 287, 269, 125, 285, 190, 314, 141, 119, 274, 274, 285, 126, 279, 143, 266, 279, 600, 276, 285, 182, 143, 287, 126, 190, 285, 143, 241, 166, 240, 190];
-        for(var i = 0; i < num; i++) {
-            var key = Math.floor(Math.random() * 60);
-            var cell = document.createElement('div');
-            cell.className = 'cell';
-            cells.push(cell);
-            front(cellTmpl, { s: key + 1, h: size[key], w: 190 }, cell);
-            fragment.appendChild(cell);
-        }
-        container.appendChild(fragment);
+        cellsContainer.appendChild(fragment);
         adjustCells(cells);
-        /* end of fake */
+      }
     };
+    loading = true;
+    xhrRequest.send(null);
+  };
 
-    var reflowCheck = function() {
-        colCount = Math.floor((document.body.offsetWidth + gapWidth) / (colWidth + gapWidth));
-        if(colArray.length != colCount) {
-            colArray = [];
-            container.style.width = (colCount * (colWidth + gapWidth) - gapWidth) + 'px';
-            for(var i = 0; i < colCount; i++) {
-                colArray.push(gapHeight);
-            }
-            adjustCells(container.childNodes);
-        } else {
-            loadCheck();
-        }
-    };
+  // Fake mode, only for GH demo
+  var appendCellsDemo = function(num) {
+    var fragment = document.createDocumentFragment();
+    var cells = [];
+    var images = [286, 143, 270, 143, 190, 285, 152, 275, 285, 285, 128, 281, 242, 339, 236, 157, 286, 259, 267, 137, 253, 127, 190, 190, 225, 269, 264, 272, 126, 265, 287, 269, 125, 285, 190, 314, 141, 119, 274, 274, 285, 126, 279, 143, 266, 279, 600, 276, 285, 182, 143, 287, 126, 190, 285, 143, 241, 166, 240, 190];
+    for(var j = 0; j < num; j++) {
+      var key = Math.floor(Math.random() * 60);
+      var cell = document.createElement('div');
+      cell.className = 'cell';
+      cells.push(cell);
+      front(cellTemplate, { s: key + 1, h: images[key], w: 190 }, cell);
+      fragment.appendChild(cell);
+    }
+    cellsContainer.appendChild(fragment);
+    adjustCells(cells);
+  };
 
-    var loadCheck = function() {
-        if(checkFlag && (window.innerHeight || document.documentElement.clientHeight) + (document.documentElement.scrollTop || document.body.scrollTop) > getMinVal(colArray)) {
-            checkFlag = false;
-            appendCells(colCount);
-        }
-    };
+  // Calculate new column data if it's necessary after resize.
+  var reflowCells = function() {
+    // Calculate new column count after resize.
+    columnCount = getColumnCount();
+    if(columnHeights.length != columnCount) {
+      columnHeights = [];
+      cellsContainer.style.width = (columnCount * (COLUMN_WIDTH + GAP_WIDTH) - GAP_WIDTH) + 'px';
+      for(var i = 0; i < columnCount; i++) {
+        columnHeights.push(GAP_HEIGHT);
+      }
+      adjustCells(cellsContainer.childNodes);
+    } else {
+      loadCells();
+    }
+  };
 
-    var reflowDelay = function() {
-        clearTimeout(delayer);
-        delayer = setTimeout(reflowCheck, 500);
-    };
+  // Load and append new cells if container is scrolled to the bottom.
+  var loadCells = function() {
+    var verticalOffset = (window.innerHeight || document.documentElement.clientHeight) + (document.body.scrollTop || document.documentElement.scrollTop);
+    if(verticalOffset > getMinVal(columnHeights)) {
+      if(isGithubDemo) {
+        appendCellsDemo(columnCount);
+      } else {
+        appendCells(columnCount);
+      }
+    }
+  };
 
-    var init = function() {
-        container.style.width = (colCount * (colWidth + gapWidth) - gapWidth) + 'px';
-        for(var i = 0; i < colCount; i++) {
-            colArray.push(gapHeight);
-        }
-        loadCheck();
-    };
+  // Add 500ms throttle resize.
+  var delayedReflow = function() {
+    clearTimeout(delayer);
+    delayer = setTimeout(reflowCells, 500);
+  };
 
-    addEvent(document, 'click', userAction);
-    addEvent(window, 'scroll', loadCheck);
-    addEvent(window, 'resize', reflowDelay);
-    addEvent(window, 'load', init);
+  // initialize the layout.
+  var init = function() {
+    columnCount = getColumnCount();
+    cellsContainer.style.width = (columnCount * (COLUMN_WIDTH + GAP_WIDTH) - GAP_WIDTH) + 'px';
+    for(var i = 0; i < columnCount; i++) {
+      columnHeights.push(GAP_HEIGHT);
+    }
+    loadCells();
+  };
 
-})();
+  addEvent(cellsContainer, 'click', updateNotice);
+  addEvent(window, 'scroll', loadCells);
+  addEvent(window, 'resize', delayedReflow);
+  addEvent(window, 'load', init);
+
+}();
