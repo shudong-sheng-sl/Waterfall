@@ -13,8 +13,8 @@ void function(window, document, undefined) {
   var cellsContainer = document.getElementById('container');
   var cellTemplate = document.getElementById('template').innerHTML;
   var noticeTag = document.getElementById('notice');
-  var columnHeights = [];
-  var columnCount = Math.floor((document.body.offsetWidth + GAP_WIDTH) / (COLUMN_WIDTH + GAP_WIDTH));
+  var columnHeights;
+  var columnCount;
   var loading = false;
   var delayer;
   var noticer;
@@ -122,7 +122,6 @@ void function(window, document, undefined) {
     xhrRequest.open('GET', 'json.php?n=' + num, true);
     xhrRequest.onreadystatechange = function() {
       if(xhrRequest.readyState == 4 && xhrRequest.status == 200) {
-        loading = false;
         images = JSON.parse(xhrRequest.responseText);
         for(var j = 0, k = images.length; j < k; j++) {
           var cell = document.createElement('div');
@@ -132,6 +131,7 @@ void function(window, document, undefined) {
           fragment.appendChild(cell);
         }
         cellsContainer.appendChild(fragment);
+        loading = false;
         adjustCells(cells);
       }
     };
@@ -166,7 +166,7 @@ void function(window, document, undefined) {
       for(var i = 0; i < columnCount; i++) {
         columnHeights.push(GAP_HEIGHT);
       }
-      adjustCells(cellsContainer.childNodes);
+      adjustCells(cellsContainer.children);
     } else {
       loadCells();
     }
@@ -192,6 +192,7 @@ void function(window, document, undefined) {
 
   // Initialize the layout.
   var init = function() {
+    columnHeights = [];
     columnCount = getColumnCount();
     cellsContainer.style.width = (columnCount * (COLUMN_WIDTH + GAP_WIDTH) - GAP_WIDTH) + 'px';
     for(var i = 0; i < columnCount; i++) {
