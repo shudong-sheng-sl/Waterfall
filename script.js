@@ -85,8 +85,8 @@ void function(window, document, undefined) {
     var e = event || window.event;
     var target = e.target || e.srcElement;
     if(target.tagName == 'SPAN') {
-      var targetImage = target.parentNode.getElementsByTagName('h2')[0].getElementsByTagName('a')[0].innerHTML;
-      noticeTag.innerHTML = (target.className == 'like' ? 'Liked ' : 'Marked ') + '<strong>' + targetImage + '</strong>';
+      var targetTitle = target.parentNode.dataset.title;
+      noticeTag.innerHTML = (target.className == 'like' ? 'Liked ' : 'Marked ') + '<strong>' + targetTitle + '</strong>';
       noticeTag.className = 'on';
       noticer = setTimeout(function() {
         noticeTag.className = 'off';
@@ -127,6 +127,8 @@ void function(window, document, undefined) {
         for(var j = 0, k = images.length; j < k; j++) {
           var cell = document.createElement('div');
           cell.className = 'cell';
+          cell.dataset = {};  // stupid IE
+          cell.dataset.title = images[j][s];
           cells.push(cell);
           front(cellTemplate, images[j], cell);
           fragment.appendChild(cell);
@@ -146,11 +148,13 @@ void function(window, document, undefined) {
     var cells = [];
     var images = [286, 143, 270, 143, 190, 285, 152, 275, 285, 285, 128, 281, 242, 339, 236, 157, 286, 259, 267, 137, 253, 127, 190, 190, 225, 269, 264, 272, 126, 265, 287, 269, 125, 285, 190, 314, 141, 119, 274, 274, 285, 126, 279, 143, 266, 279, 600, 276, 285, 182, 143, 287, 126, 190, 285, 143, 241, 166, 240, 190];
     for(var j = 0; j < num; j++) {
-      var key = Math.floor(Math.random() * 60);
+      var key = Math.floor(Math.random() * 60) + 1;
       var cell = document.createElement('div');
       cell.className = 'cell';
+      cell.dataset = {};  // stupid IE
+      cell.dataset.title = key;
       cells.push(cell);
-      front(cellTemplate, { s: key + 1, h: images[key], w: 190 }, cell);
+      front(cellTemplate, { s: key, h: images[key], w: 190 }, cell);
       fragment.appendChild(cell);
     }
     cellsContainer.appendChild(fragment);
