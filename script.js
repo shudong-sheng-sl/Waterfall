@@ -10,14 +10,15 @@ void function(window, document, undefined) {
   var GAP_HEIGHT = 15;      // vertical gap between cells
   var GAP_WIDTH = 15;       // horizontal gap between cells
 
+  var columnHeights;        // array of every column's height
+  var columnCount;          // number of columns
+  var delayer;              // resize throttle timer
+  var noticer;              // popup notice timer
+  var loading = false;      // flag for loading state
+
+  var noticeTag = document.getElementById('notice');
   var cellsContainer = document.getElementById('container');
   var cellTemplate = document.getElementById('template').innerHTML;
-  var noticeTag = document.getElementById('notice');
-  var columnHeights;
-  var columnCount;
-  var loading = false;
-  var delayer;
-  var noticer;
 
   // Cross-browser compatible event handler.
   var addEvent = function(element, type, handler) {
@@ -184,7 +185,7 @@ void function(window, document, undefined) {
     }
   };
 
-  // Add 500ms throttle resize.
+  // Add 500ms throttle to window resize.
   var delayedReflow = function() {
     clearTimeout(delayer);
     delayer = setTimeout(reflowCells, 500);
