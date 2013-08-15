@@ -1,6 +1,6 @@
 <?php
 
-// Generate JSON string of image data to the waterfall
+/* Generate JSON string of image data to the waterfall. */
 
 $num = $_GET["n"];
 
@@ -13,8 +13,11 @@ for($i = 0; $i < $num; $i++) {
   if($size[0] != 190) {
     $height = 190 * $size[1] / $size[0];
   }
-  $arr[$i] = array("s" => $src, "h" => $height, "w" => 190);
+  $arr[$i] = array("title" => "demo picture " . $src, "src" => $src, "height" => $height, "width" => 190);
 }
+
+// Faking network latency.
+sleep(2);
 
 echo json_encode($arr);
 
