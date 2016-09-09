@@ -7,7 +7,7 @@ $num = $_GET["n"];
 $arr = array();
 
 for($i = 0; $i < $num; $i++) {
-  $src = rand(1, 60);
+  $src = rand(1, 4);
   $size = getimagesize("img/" . $src . ".jpg");
   $height = $size[1];
   if($size[0] != 380) {
