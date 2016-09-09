@@ -153,7 +153,7 @@ void function(window, document, undefined) {
       cell.className = 'cell pending';
       cell.tagLine = 'js demo picture ' + key;
       cells.push(cell);
-      front(cellTemplate, { 'title': 'demo picture ' + key, 'src': key, 'height': images[key], 'width': 380 }, cell);
+      front(cellTemplate, { 'title': 'js demo picture ' + key, 'src': key, 'height': images[key], 'width': 380 }, cell);
       fragment.appendChild(cell);
     }
     // Faking network latency.
