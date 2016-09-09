@@ -10,10 +10,10 @@ for($i = 0; $i < $num; $i++) {
   $src = rand(1, 60);
   $size = getimagesize("img/" . $src . ".jpg");
   $height = $size[1];
-  if($size[0] != 190) {
-    $height = 190 * $size[1] / $size[0];
+  if($size[0] != 380) {
+    $height = 380 * $size[1] / $size[0];
   }
-  $arr[$i] = array("title" => "demo picture " . $src, "src" => $src, "height" => $height, "width" => 190);
+  $arr[$i] = array("title" => "demo picture " . $src, "src" => $src, "height" => $height, "width" => 380);
 }
 
 // Faking network latency.
