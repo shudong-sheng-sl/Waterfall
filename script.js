@@ -154,8 +154,8 @@ void function(window, document, undefined) {
       cell.className = 'cell pending';
       cell.tagLine = 'memory photo ' + key;
       cells.push(cell);
-    //  front(cellTemplate, { 'title': 'our memory photo ' + key, 'src': key, 'height': images[key], 'width': 380 }, cell);
-      front(cellTemplate, { 'title': texts[key], 'src': key, 'height': images[key], 'width': 380 }, cell);
+      front(cellTemplate, { 'title': 'our memory photo ' + key, 'src': key, 'height': images[key], 'width': 380 }, cell);
+    //  front(cellTemplate, { 'title': texts[key], 'src': key, 'height': images[key], 'width': 380 }, cell);
       fragment.appendChild(cell);
     }
     // Faking network latency.
