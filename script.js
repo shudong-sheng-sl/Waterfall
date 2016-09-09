@@ -1,4 +1,4 @@
-// var isGithubDemo = isGithubDemo || false;  // This is for GitHub demo only. Remove it in your project
+var isGithubDemo = isGithubDemo || false;  // This is for GitHub demo only. Remove it in your project
 
 void function(window, document, undefined) {
 
@@ -151,7 +151,7 @@ void function(window, document, undefined) {
       var key = Math.floor(Math.random() * 60) + 1;
       var cell = document.createElement('div');
       cell.className = 'cell pending';
-      cell.tagLine = 'demo picture ' + key;
+      cell.tagLine = 'js demo picture ' + key;
       cells.push(cell);
       front(cellTemplate, { 'title': 'demo picture ' + key, 'src': key, 'height': images[key], 'width': 380 }, cell);
       fragment.appendChild(cell);
@@ -227,11 +227,11 @@ void function(window, document, undefined) {
     // If there's space in viewport for a cell, request new cells.
     if(viewportBottom > getMinVal(columnHeights)) {
       // Remove the if/else statement in your project, just call the appendCells function.
-    //  if(isGithubDemo) {
-    //    appendCellsDemo(columnCount);
-    //  } else {
+      if(isGithubDemo) {
+        appendCellsDemo(columnCount);
+      } else {
         appendCells(columnCount);
-    //  }
+      }
     }
 
     // Unlock managing state.
