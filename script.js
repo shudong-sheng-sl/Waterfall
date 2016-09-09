@@ -6,7 +6,7 @@ void function(window, document, undefined) {
   "user strict";
 
   var MIN_COLUMN_COUNT = 3; // minimal column count
-  var COLUMN_WIDTH = 220;   // cell width: 380, padding: 14 * 2, border: 1 * 2
+  var COLUMN_WIDTH = 410;   // cell width: 380, padding: 14 * 2, border: 1 * 2
   var CELL_PADDING = 26;    // cell padding: 14 + 10, border: 1 * 2
   var GAP_HEIGHT = 15;      // vertical gap between cells
   var GAP_WIDTH = 15;       // horizontal gap between cells
