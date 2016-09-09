@@ -13,7 +13,7 @@ for($i = 0; $i < $num; $i++) {
   if($size[0] != 380) {
     $height = 380 * $size[1] / $size[0];
   }
-  $arr[$i] = array("title" => "demo picture " . $src, "src" => $src, "height" => $height, "width" => 380);
+  $arr[$i] = array("title" => "good picture " . $src, "src" => $src, "height" => $height, "width" => 380);
 }
 
 // Faking network latency.
