@@ -147,13 +147,19 @@ void function(window, document, undefined) {
     var fragment = document.createDocumentFragment();
     var cells = [];
     var images = [0, 506, 506, 285, 531, 190, 285, 152, 275, 285, 285, 128, 281, 242, 339, 236, 157, 286, 259, 267, 137, 253, 127, 190, 190, 225, 269, 264, 272, 126, 265, 287, 269, 125, 285, 190, 314, 141, 119, 274, 274, 285, 126, 279, 143, 266, 279, 600, 276, 285, 182, 143, 287, 126, 190, 285, 143, 241, 166, 240, 190];
+    var texts = [' '，
+                 '小三口第一次合影',
+                 '可乐大头照',
+                 '巴厘岛AYANA',
+                 '春节祝福'];
     for(var j = 0; j < num; j++) {
       var key = Math.floor(Math.random() * 4) + 1;
       var cell = document.createElement('div');
       cell.className = 'cell pending';
       cell.tagLine = 'memory photo ' + key;
       cells.push(cell);
-      front(cellTemplate, { 'title': 'our memory photo ' + key, 'src': key, 'height': images[key], 'width': 380 }, cell);
+    //  front(cellTemplate, { 'title': 'our memory photo ' + key, 'src': key, 'height': images[key], 'width': 380 }, cell);
+      front(cellTemplate, { 'title': 'our memory photo ' + texts[key], 'src': key, 'height': images[key], 'width': 380 }, cell);
       fragment.appendChild(cell);
     }
     // Faking network latency.
