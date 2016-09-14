@@ -6,7 +6,7 @@ void function(window, document, undefined) {
   "user strict";
 
   var MIN_COLUMN_COUNT = 3; // minimal column count
-  var COLUMN_WIDTH = 410;   // cell width: 380, padding: 14 * 2, border: 1 * 2
+  var COLUMN_WIDTH = 220;   // cell width: 190, padding: 14 * 2, border: 1 * 2
   var CELL_PADDING = 26;    // cell padding: 14 + 10, border: 1 * 2
   var GAP_HEIGHT = 15;      // vertical gap between cells
   var GAP_WIDTH = 15;       // horizontal gap between cells
@@ -146,16 +146,17 @@ void function(window, document, undefined) {
     }
     var fragment = document.createDocumentFragment();
     var cells = [];
-    var images = [0, 506, 506, 285, 531, 190, 285, 152, 275, 285, 285, 128, 281, 242, 339, 236, 157, 286, 259, 267, 137, 253, 127, 190, 190, 225, 269, 264, 272, 126, 265, 287, 269, 125, 285, 190, 314, 141, 119, 274, 274, 285, 126, 279, 143, 266, 279, 600, 276, 285, 182, 143, 287, 126, 190, 285, 143, 241, 166, 240, 190];
-    var texts = [" ", "新成员加入第一次合影", "可乐大头照", "巴厘 AYANA", "春节祝福"];
+    var images = [0, 142, 126, 126, 142, 253, 142, 142, 142, 142, 142, 126, 337, 126, 126, 126, 253, 142, 126, 126, 141];
+    // var images = [0, 142, 126, 126, 142, 253, 142, 142, 142, 142, 142, 126, 337, 126, 126, 126, 253, 142, 126, 126, 141, 253, 127, 190, 190, 225, 269, 264, 272, 126, 265, 287, 269, 125, 285, 190, 314, 141, 119, 274, 274, 285, 126, 279, 143, 266, 279, 600, 276, 285, 182, 143, 287, 126, 190, 285, 143, 241, 166, 240, 190];
+    var texts = [" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
     for(var j = 0; j < num; j++) {
-      var key = Math.floor(Math.random() * 4) + 1;
+      var key = Math.floor(Math.random() * 20) + 1;
       var cell = document.createElement('div');
       cell.className = 'cell pending';
       cell.tagLine = 'memory photo ' + key;
       cells.push(cell);
     //  front(cellTemplate, { 'title': 'our memory photo ' + key, 'src': key, 'height': images[key], 'width': 380 }, cell);
-      front(cellTemplate, { 'title': texts[key], 'src': key, 'height': images[key], 'width': 380 }, cell);
+      front(cellTemplate, { 'title': texts[key], 'src': key, 'height': images[key], 'width': 190 }, cell);
       fragment.appendChild(cell);
     }
     // Faking network latency.
