@@ -12,6 +12,7 @@ void function(window, document, undefined) {
   var GAP_WIDTH = 15;       // horizontal gap between cells
   var THRESHOLD = 2000;     // determines whether a cell is too far away from viewport (px)
 
+  var totalCount = 0;       //*001
   var columnHeights;        // array of every column's height
   var columnCount;          // number of columns
   var noticeDelay;          // popup notice timer
@@ -150,7 +151,12 @@ void function(window, document, undefined) {
     // var images = [0, 142, 126, 126, 142, 253, 142, 142, 142, 142, 142, 126, 337, 126, 126, 126, 253, 142, 126, 126, 141, 253, 127, 190, 190, 225, 269, 264, 272, 126, 265, 287, 269, 125, 285, 190, 314, 141, 119, 274, 274, 285, 126, 279, 143, 266, 279, 600, 276, 285, 182, 143, 287, 126, 190, 285, 143, 241, 166, 240, 190];
     var texts = [" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
     for(var j = 0; j < num; j++) {
-      var key = Math.floor(Math.random() * 20) + 1;
+    //  var key = Math.floor(Math.random() * 20) + 1;
+      var key = totalCount + j + 1; //*001
+      if(key > 20) { //*001
+        key = key - 20;
+        totalCount = 0;
+      }
       var cell = document.createElement('div');
       cell.className = 'cell pending';
       cell.tagLine = 'memory photo ' + key;
@@ -159,6 +165,7 @@ void function(window, document, undefined) {
       front(cellTemplate, { 'title': texts[key], 'src': key, 'height': images[key], 'width': 190 }, cell);
       fragment.appendChild(cell);
     }
+    totalCount = key; //*001
     // Faking network latency.
     setTimeout(function() {
       loading = false;
