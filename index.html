@@ -17,11 +17,12 @@
                  // 初始化最后一个div为隐蔽 
                  $("div").last().hide();
                  // key是小图的地址； 
-                  var smallPath = "<img src='"  +  key  +  "'/>";
+                  var smallPath = "<img src=\""  +  key  +  "\"/>";
                  // 设置大图地址和名称;
+                  alert(smallPath);
                   smallPath.attr("bigMapPath", value[0]);
                   smallPath.attr("bigMapName", value[1]);
-                  alert(smallPath);
+                  
 		  alert(smallPath.attr("bigMapPath"));
 		  alert(smallPath.attr("bigMapName"));
                  // 给小图添加事件 
