@@ -13,8 +13,8 @@
 
  
     <script type="text/template" id="template"> 
-      <p><a href="#"><img src="img/{{src}}.jpg" height="{{height}}" width="{{width}}" /></a></p> 
-      <h2 href="img/big.jpg"><a href="#">{{title}}</a></h2> 
+      <p href="img/big.jpg"><a href="#"><img src="img/{{src}}.jpg" height="{{height}}" width="{{width}}" /></a></p> 
+      <h2><a href="#">{{title}}</a></h2> 
       <span class="like">Like!</span> 
       <span class="mark">Mark!</span> 
     </script> 
@@ -52,7 +52,7 @@ body.appendChild(divShow);
 //节点对象.事件名 = new function(){}; 
 
 //得到所有的<a>标签 
-var alist = document.getElementById("div").getElementsByTagName("h2"); 
+var alist = document.getElementById("div").getElementsByTagName("p"); 
 
 for(var i = 0;i < alist.length; i++){ 
 //当鼠标点击时切换图片 
