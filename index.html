@@ -13,7 +13,7 @@
 
  
     <script type="text/template" id="template"> 
-      <p><a href="img/big.jpg"><img src="img/{{src}}.jpg" height="{{height}}" width="{{width}}" /></a></p> 
+      <p><a href="img/b{{src}}.jpg"><img src="img/{{src}}.jpg" height="{{height}}" width="{{width}}" /></a></p> 
       <h2><a href="#">{{title}}</a></h2> 
       <span class="like">Like!</span> 
       <span class="mark">Mark!</span> 
@@ -65,7 +65,7 @@ var img = this.getElementsByTagName("img")[0];
 
 //修改img标签的src属性 
 var img = document.getElementById("img"); 
-img.setAttribute("src",href); 
+img.setAttribute("src",href + ); 
 
 //修改p标签的文本 
 //var p = document.getElementById("p"); 
