@@ -19,8 +19,9 @@
                  // key是小图的地址； 
                   var smallPath = "<img id='smallpic' src='"  +  key  +  "'/>";
                  // 设置大图地址和名称;
-                  $("#smallpic").attr("bigMapPath", value[0]);
-                  $("#smallpic").attr("bigMapName", value[1]);
+                  $("#smallpic").attr("bigMapPath",value[0]);
+                  $("#smallpic").attr("bigMapName",value[1]);
+                  alert(value[0]);
                   alert($("#smallpic").attr("bigMapPath"));
                  // 给小图添加事件 
                  smallPath.mouseover(function() {
