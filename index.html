@@ -11,6 +11,8 @@
         for(var i=0; i<120; i++){
 	a[i] = "img/" + (i+1) + ".jpg";
 	data[a[i]] = ["img/big.jpg","大图片"];
+	alert(a[i]);
+	alert(data[a[i]]);
          }
          $(function  () {
             $.each(data, function (key, value) {
