@@ -11,9 +11,8 @@
     <div id="notice" class="off"></div> 
     <div id="loader"><span>loading</span></div> 
     <div id="bigImg">
-        <p id ="imgTitle" > 
-        </p > 
-        <img id ="show"  src =""  alt =""   /> 
+        <p id ="imgTitle"></p> 
+        <img id ="show" src ="" alt ="" /> 
     </div>
  
      <script type="text/template" id="template"> 
@@ -22,42 +21,42 @@
       <span class="like">Like!</span> 
       <span class="mark">Mark!</span> 
      </script> 
-     <script  src ="jquery-migrate-1.4.1.js"  type ="text/javascript" ></ script > 
-     <script  language ="javascript"  type ="text/javascript" > 
-         var data = {};
-         var a = [];
-         for(var i=0; i<120; i++){
-	a[i] = " img/" + (i+1) +".jpg ";
-	data[a[i]] = [ " img/big.jpg " ,  " 大图片 " ];
+     <script src="jquery-migrate-1.4.1.js" type ="text/javascript"></script> 
+     <script language ="javascript" type ="text/javascript"> 
+        var data = {};
+        var a = [];
+        for(var i=0; i<120; i++){
+	a[i] = "img/" + (i+1) + ".jpg";
+	data[a[i]] = ["img/big.jpg","大图片"];
          }
-         $( function  () {
-            $.each(data,  function  (key, value) {
+         $(function  () {
+            $.each(data, function (key, value) {
                  // 初始化最后一个div为隐蔽 
-                 $( " div " ).last().hide();
+                 $( "div" ).last().hide();
                  // key是小图的地址； 
-                  var  smallPath  =  " <img src=' "   +  key  +   " '/> ";
+                  var  smallPath  =  "<img src='"  +  key  +  "'/>";
                  // 设置大图地址和名称； 
-                bigImgPath  =  smallPath.attr( " bigMapPath " , value[ 0 ]);
-                bigImgName  =  smallPath.attr( " bigMapName " , value[ 1 ]);
+                bigImgPath  =  smallPath.attr( "bigMapPath" , value[ 0 ]);
+                bigImgName  =  smallPath.attr( "bigMapName" , value[ 1 ]);
 
                  // 给小图添加事件 
                  smallPath.mouseover( function  () {
                      // 最后一个div淡入效果 
-                     $( " div " ).last().fadeIn( " slow " );
+                     $( "div" ).last().fadeIn( "slow" );
                      // 获取大图地址 
-                     $( " #show " ).attr( " src " , $( this ).attr( " bigMapPath " ));
+                     $( "#show" ).attr("src" , $(this).attr( "bigMapPath"));
                      // 获取大图名称并设置样式 
-                     $( " #imgTitle " ).text($( this ).attr( " bigMapName " )).css( " background " ,  " #ebf1de " ).css( " padding " ,  " 10px " ).css( " margin-bottom " ,  " 10px " );
+                     $( "#imgTitle" ).text($(this).attr("bigMapName")).css("background", "#ebf1de").css( "padding" ,  "10px" ).css("margin-bottom" ,  "10px");
                 });
                 smallPath.mouseout( function  () {
                      // 指定最后一个div； 
-                     $( " div " ).last().fadeOut( " slow " );
+                     $("div").last().fadeOut("slow");
                 });
                  // .first方法，指第第一个DIV添加小图；（过滤器） 
-                 $( " div " ).first().append(smallPath);
+                 $("div").first().append(smallPath);
             });
         });
-     </script > 
+     </script> 
  
     <script>var isGithubDemo = true;</script> 
     <script src="front.js/front.min.js"></script> 
