@@ -8,11 +8,9 @@
      <script language ="javascript" type ="text/javascript"> 
         var data = {};
         var a = [];
-        for(var i=0; i<120; i++){
+        for(var i=0; i<3; i++){
 	a[i] = "img/" + (i+1) + ".jpg";
 	data[a[i]] = ["img/big.jpg","大图片"];
-	alert(a[i]);
-	alert(data[a[i]]);
          }
          $(function  () {
             $.each(data, function (key, value) {
@@ -20,10 +18,12 @@
                  $( "div" ).last().hide();
                  // key是小图的地址； 
                   var  smallPath = "<img src='"  +  key  +  "'/>";
+                  alert(smallPath);
                  // 设置大图地址和名称； 
                 bigImgPath = smallPath.attr( "bigMapPath" , value[0]);
                 bigImgName = smallPath.attr( "bigMapName" , value[1]);
-
+		  alert(bigImgPath);
+		  alert(bigImgName);
                  // 给小图添加事件 
                  smallPath.mouseover( function  () {
                      // 最后一个div淡入效果 
