@@ -76,24 +76,24 @@ return false;
 } 
 
 //当鼠标称上去的时候切换图片 
-alist[i].onmousemove = function(){ 
+//alist[i].onmousemove = function(){ 
 //this就表示当前被点击的节点 
 //点谁获得谁的href和title的值 
-var href = this.getAttribute("href"); 
-var img = this.getElementsByTagName("img")[0]; 
-var title = img.getAttribute("title"); 
+//var href = this.getAttribute("href"); 
+//var img = this.getElementsByTagName("img")[0]; 
+//var title = img.getAttribute("title"); 
 
 //修改img标签的src属性 
-var img = document.getElementById("img"); 
-img.setAttribute("src",href); 
+//var img = document.getElementById("img"); 
+//img.setAttribute("src",href); 
 
 //修改p标签的文本 
-var p = document.getElementById("p"); 
-p.firstChild.nodeValue=title; 
+//var p = document.getElementById("p"); 
+//p.firstChild.nodeValue=title; 
 
 //取消<a>标签的跳转 
-return false; 
-} 
+//return false; 
+//} 
 } 
 </script> 
   </body> 
