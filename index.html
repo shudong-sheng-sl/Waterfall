@@ -15,15 +15,16 @@
          $(function  () {
             $.each(data, function (key, value) {
                  // 初始化最后一个div为隐蔽 
-                 $( "div" ).last().hide();
+                 $("div").last().hide();
                  // key是小图的地址； 
-                  var  smallPath = "<img src='"  +  key  +  "'/>";
+                  var smallPath = "<img src='"  +  key  +  "'/>";
                   alert(smallPath);
+                  alert(key);
+                  alert(value);
                  // 设置大图地址和名称； 
                 bigImgPath = smallPath.attr( "bigMapPath" , value[0]);
                 bigImgName = smallPath.attr( "bigMapName" , value[1]);
-                  alert(value[0]);
-		
+
                  // 给小图添加事件 
                  smallPath.mouseover( function  () {
                      // 最后一个div淡入效果 
