@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html> 
+<html> 
+  <head> 
+    <meta charset="utf-8" /> 
+    <title>SL home</title> 
+    <link rel="stylesheet" href="style.css" /> 
+  </head> 
+  <body> 
+    <h1>SL home</h1> 
+    <div id="notice" class="off"></div> 
+    <div id="cells"></div> 
+    <div id="loader"><span>loading</span></div> 
+
+ 
+    <script type="text/template" id="template"> 
+      <p><a href="img/big.jpg"><img src="img/{{src}}.jpg" height="{{height}}" width="{{width}}" /></a></p> 
+      <h2><a href="img/big.jpg">{{title}}</a></h2> 
+      <span class="like">Like!</span> 
+      <span class="mark">Mark!</span> 
+    </script> 
+
+ 
+    <script>var isGithubDemo = true;</script> 
+    <script src="front.js/front.min.js"></script> 
+    <script src="script.js"></script>
+<script type="text/javascript"> 
+//创建一个div节点 
+var divShow = document.createElement("div"); 
+//设置div的id属性 
+divShow.setAttribute("id","divShow"); 
+//创建一个img节点 
+var img = document.createElement("img"); 
+//设置img的id属性 
+img.setAttribute("id","img"); 
+//设置img的src属性 
+img.setAttribute("src",""); 
+//将img节点添加到div下 
+divShow.appendChild(img); 
+//创建文本说明标签p 
+var p = document.createElement("p"); 
+p.setAttribute("id","p"); 
+p.appendChild(document.createTextNode("说明")); 
+
+//得到HTML中的body节点 
+var body = document.getElementsByTagName("body")[0]; 
+//将div添加到body节点下 
+body.appendChild(divShow); 
+body.appendChild(p);//把p添加到body下 
+
+
+//为元素添加单击事件 
+//节点对象.事件名 = new function(){}; 
+
+//得到所有的<a>标签 
+var alist = document.getElementById("div").getElementsByTagName("a"); 
+
+for(var i = 0;i < alist.length; i++){ 
+//当鼠标点击时切换图片 
+alist[i].onclick = function(){ 
+//this就表示当前被点击的节点 
+//点谁获得谁的href和title的值 
+var href = this.getAttribute("href"); 
+var img = this.getElementsByTagName("img")[0]; 
+var title = img.getAttribute("title"); 
+
+//修改img标签的src属性 
+var img = document.getElementById("img"); 
+img.setAttribute("src",href); 
+
+//修改p标签的文本 
+var p = document.getElementById("p"); 
+p.firstChild.nodeValue=title; 
+
+//取消<a>标签的跳转 
+return false; 
+} 
+
+//当鼠标称上去的时候切换图片 
+alist[i].onmousemove = function(){ 
+//this就表示当前被点击的节点 
+//点谁获得谁的href和title的值 
+var href = this.getAttribute("href"); 
+var img = this.getElementsByTagName("img")[0]; 
+var title = img.getAttribute("title"); 
+
+//修改img标签的src属性 
+var img = document.getElementById("img"); 
+img.setAttribute("src",href); 
+
+//修改p标签的文本 
+var p = document.getElementById("p"); 
+p.firstChild.nodeValue=title; 
+
+//取消<a>标签的跳转 
+return false; 
+} 
+} 
+</script> 
+  </body> 
+</html> 
