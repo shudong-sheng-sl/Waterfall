@@ -18,15 +18,11 @@
                  $("div").last().hide();
                  // key是小图的地址； 
                   var smallPath = "<img src='"  +  key  +  "'/>";
-                  alert(smallPath);
-                  alert(key);
-                  alert(value);
-                  alert(value[0]);
-                  alert(value[1]);
                  // 设置大图地址和名称； 
-                bigImgPath = smallPath.attr( "bigMapPath" , value[0]);
-                bigImgName = smallPath.attr( "bigMapName" , value[1]);
-
+                  var bigImgPath = smallPath.attr("bigMapPath", value[0]);
+                  var bigImgName = smallPath.attr("bigMapName", value[1]);
+		  alert(bigImgPath);
+		  alert(bigImgName);
                  // 给小图添加事件 
                  smallPath.mouseover( function  () {
                      // 最后一个div淡入效果 
