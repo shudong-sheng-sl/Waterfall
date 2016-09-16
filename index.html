@@ -17,12 +17,12 @@
                  // 初始化最后一个div为隐蔽 
                  $("div").last().hide();
                  // key是小图的地址； 
-                  var smallPath = "<img id='smallpic' src='"  +  key  +  "'/>";
+                  var smallPath = "<img src='"  +  key  +  "'/>";
                  // 设置大图地址和名称;
-                  $("#smallpic").attr("bigMapPath",value[0]);
-                  $("#smallpic").attr("bigMapName",value[1]);
+                  $(smallPath).attr("bigMapPath",value[0]);
+                  //$("#smallpic").attr("bigMapName",value[1]);
                   alert(value[0]);
-                  alert($("#smallpic").attr("bigMapPath"));
+                  alert($(smallpath).attr("bigMapPath"));
                  // 给小图添加事件 
                  smallPath.mouseover(function() {
                      // 最后一个div淡入效果
@@ -53,7 +53,7 @@
     </div>
  
      <script type="text/template" id="template"> 
-      <p><a href="#"><img id="smallpic" src="img/{{src}}.jpg" height="{{height}}" width="{{width}}" /></a></p> 
+      <p><a href="#"><img src="img/{{src}}.jpg" height="{{height}}" width="{{width}}" /></a></p> 
       <h2><a href="#">{{title}}</a></h2> 
       <span class="like">Like!</span> 
       <span class="mark">Mark!</span> 
