@@ -7,20 +7,22 @@
     <link rel="stylesheet" href="style.css" />
     <script src="FancyZoom.js" language="JavaScript" type="text/javascript"></script>
     <script src="FancyZoomHTML.js" language="JavaScript" type="text/javascript"></script>
-    <script>var isGithubDemo = true;</script>
-    <script src="front.js/front.min.js"></script>
-    <script src="script.js"></script>
-    <script type="text/template" id="template">
-      <p><a href="img/b{{src}}.jpg" title="分享JavaScript" ><img src="img/{{src}}.jpg" height="{{height}}" width="{{width}}"  /></a></p>
-      <h2><a href="img/b{{src}}.jpg">{{title}}</a></h2>
-      <span class="like">Like!</span>
-      <span class="mark">Mark!</span>
-    </script>
   </head>
   <body onLoad="setupZoom();">
     <h1>SL home</h1>
     <div id="notice" class="off"></div>
     <div id="cells"></div>
-    <div id="loader"><span>loading</span></div>
+    <div id="loader"><span>loading</span></div>    
+    
+    <script type="text/template" id="template">
+      <p><a href="img/b{{src}}.jpg" ><img src="img/{{src}}.jpg" height="{{height}}" width="{{width}}"  /></a></p>
+      <h2><a href="img/b{{src}}.jpg">{{title}}</a></h2>
+      <span class="like">Like!</span>
+      <span class="mark">Mark!</span>
+    </script>
+    
+    <script>var isGithubDemo = true;</script>
+    <script src="front.js/front.min.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
