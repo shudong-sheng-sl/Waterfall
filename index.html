@@ -5,16 +5,15 @@
     <title>SL home</title>
     <link rel="stylesheet" href="cabel-v1." type="text/css" />
     <link rel="stylesheet" href="style.css" />
+    <script src="js-global/FancyZoom.js" language="JavaScript" type="text/javascript"></script>
+    <script src="js-global/FancyZoomHTML.js" language="JavaScript" type="text/javascript"></script>
   </head>
   <body onLoad="setupZoom();">
     <h1>SL home</h1>
-    <div <a href="img/b1.jpg" title="分享JavaScript" ><img src="img/1.jpg" /></a></div>
+    <div <a href="img/b{{src}}.jpg" title="分享JavaScript" ><img src="img/{{src}}.jpg" /></a> ></div>
     <div id="cells"></div>
     <div id="notice" class="off"></div>
     <div id="loader"><span>loading</span></div>
-
-    <script src="js-global/FancyZoom.js" language="JavaScript" type="text/javascript"></script>
-    <script src="js-global/FancyZoomHTML.js" language="JavaScript" type="text/javascript"></script>
     <script type="text/template" id="template">
       <p><a href="img/b{{src}}.jpg" title="分享JavaScript" ><img src="img/{{src}}.jpg" height="{{height}}" width="{{width}}" id="img-{{src}}" class="photo" /></a></p>
       <h2><a href="img/b{{src}}.jpg">{{title}}</a></h2>
