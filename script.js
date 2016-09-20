@@ -158,6 +158,7 @@ void function(window, document, undefined) {
       if(key > 130) { //*001
         key = key - 130;
         totalCount = 0;
+        j = 0;
     //  if(key = 0) {  //*002
     //    key = 130;  //*002
     //    totalCount = 130;  //*002
