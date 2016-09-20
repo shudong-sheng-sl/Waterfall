@@ -165,8 +165,8 @@ void function(window, document, undefined) {
       }
       var cell = document.createElement('div');
       cell.className = 'cell pending';
-    //  cell.tagLine = 'memory photo ' + key;
-      cell.tagLine = texts[key];  //*002
+      cell.tagLine = 'memory photo ' + key;
+    //  cell.tagLine = texts[key];  //*002
       cells.push(cell);
     //  front(cellTemplate, { 'title': 'our memory photo ' + key, 'src': key, 'height': images[key], 'width': 380 }, cell);
       front(cellTemplate, { 'title': texts[key], 'src': key, 'height': images[key], 'width': 190 }, cell);
